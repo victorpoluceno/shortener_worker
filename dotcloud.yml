@@ -3,3 +3,6 @@ worker:
 
 queue:
   type: rabbitmq
+
+db:
+  type: postgresql
