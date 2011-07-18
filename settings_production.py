@@ -1,13 +1,16 @@
 import os, json
 
+envfilepath = os.path.join(os.environ['HOME'], 'environment.json')
+environment = json.load(open(envfilepath))
+
 import djcelery
 djcelery.setup_loader()
 
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "admin"
-BROKER_PASSWORD = "test"
-BROKER_VHOST = "vpoluceno-desktop"
+BROKER_HOST = environment['DOTCLOUD_QUEUE_AMQP_HOST']
+BROKER_PORT = environment['DOTCLOUD_QUEUE_AMQP_PORT']
+BROKER_USER = environment['DOTCLOUD_QUEUE_AMQP_LOGIN']
+BROKER_PASSWORD = environment['DOTCLOUD_QUEUE_AMQP_PASSWORD']
+#BROKER_VHOST = "vpoluceno-desktop"
 #BROKER_USE_SSL = True
 
 CELERY_SEND_TASK_ERROR_EMAILS = True
@@ -33,17 +36,15 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-envfilepath = os.path.join(os.environ['HOME'], 'environment.json')
-environment = json.load(open(envfilepath))
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'template1',
-        'USER': environment['DOTCLOUD_DB_POSTGRESSQL_LOGIN'],
-        'PASSWORD': environment['DOTCLOUD_DB_POSTGRESSQL_PASSWORD'],
-        'HOST': environment['DOTCLOUD_DB_POSTGRESSQL_HOST'],
-        'PORT': environment['DOTCLOUD_DB_POSTGRESSQL_PORT'],
+        'USER': environment['DOTCLOUD_DB_SQL_LOGIN'],
+        'PASSWORD': environment['DOTCLOUD_DB_SQL_PASSWORD'],
+        'HOST': environment['DOTCLOUD_DB_SQL_HOST'],
+        'PORT': environment['DOTCLOUD_DB_SQL_PORT'],
     }
 }
 
