@@ -6,4 +6,4 @@ db:
 
 worker:
   type: python-worker
-
+  instances: 2
