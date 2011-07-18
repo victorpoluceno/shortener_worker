@@ -9,12 +9,10 @@ BROKER_VHOST = "vpoluceno-desktop"
 BROKER_BACKEND="memory"
 
 CELERYD_SOFT_TASK_TIME_LIMIT = 180
+CELERYD_LOG_LEVEL = INFO
 
 # set CELERY_ALWAYS_EAGER=True before running tests
 TEST_RUNNER = 'djcelery.contrib.test_runner.run_tests' 
-
-# avoid be throttled when running on test server
-SHOULD_BE_THROTTLED = False
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
