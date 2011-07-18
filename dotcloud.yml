@@ -1,8 +1,9 @@
-worker:
-  type: python-worker
-
 queue:
   type: rabbitmq
 
 db:
   type: postgresql
+
+worker:
+  type: python-worker
+
