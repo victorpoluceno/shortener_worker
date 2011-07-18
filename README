@@ -1,0 +1,25 @@
+development:
+    install:
+        - virtualenv env --no-site-packages
+        - pip install -r requirements_devel.txt
+
+    test:
+        - python manage.py test rest_api
+
+    run:
+        - python manage.py celeryd -l info -E
+
+tests:
+    install:
+        - virtualenv env --no-site-packages
+        - pip install -r requirements_tests.txt
+
+    test:
+        - python manage.py test rest_api --settings=settings_tests
+
+    run:
+        - python manage.py celeryd -l info -E -P eventlet -c 10 --settings_tests
+
+production:
+    - install:
+        - sudo pip install dotcloud
