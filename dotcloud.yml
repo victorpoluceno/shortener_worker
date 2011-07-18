@@ -1,2 +1,5 @@
 worker:
   type: python-worker
+
+queue:
+  type: rabbitmq
