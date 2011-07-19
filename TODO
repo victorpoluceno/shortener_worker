@@ -1,1 +1,3 @@
 - Set auth on rabbitmq admin admin
+- Tests on production
+- Add tox tests to 2.6, 2.7
