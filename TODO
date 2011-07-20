@@ -1,3 +1,6 @@
 - Set auth on rabbitmq admin admin
 - Tests on production
 - Add tox tests to 2.6, 2.7
+- Test performance using memcache as cache backend
+- Test performance and pros using a persisntent result backend like mongodb
+- Check why running test_functional.py on devel env we never reach the queue, and raise a timeout error
