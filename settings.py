@@ -8,7 +8,6 @@ BROKER_PASSWORD = "test"
 BROKER_VHOST = "vpoluceno-desktop"
 BROKER_BACKEND="memory"
 
-CELERYD_SOFT_TASK_TIME_LIMIT = 180
 CELERYD_LOG_LEVEL = 'INFO'
 
 # set CELERY_ALWAYS_EAGER=True before running tests
