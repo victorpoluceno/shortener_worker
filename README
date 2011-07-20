@@ -16,6 +16,7 @@ tests:
 
     test:
         - python manage.py test rest_api --settings=settings_tests
+        - export PYTHONPATH=. && export DJANGO_SETTINGS_MODULE=settings_tests && python rest_api/tests/test_functional.py
 
     run:
         - python manage.py celeryd -l info -E -P eventlet -c 10 --settings_tests
