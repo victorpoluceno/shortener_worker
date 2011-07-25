@@ -1,8 +1,4 @@
-import json
-import urllib
-from unittest import TestCase
-
-from django.test import TestCase as DjangoTestCase
+from django.test import TestCase
 from django.test.client import Client
 
 from django.contrib.auth.models import User
@@ -15,7 +11,7 @@ from celery.task.sets import subtask
 from celery.task import task
 
 
-class TaskTest(DjangoTestCase):
+class TaskTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user('tests', \
                 email='victorpoluceno@gmail.com')

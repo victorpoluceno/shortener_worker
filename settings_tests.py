@@ -3,19 +3,17 @@ djcelery.setup_loader()
 
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
-BROKER_USER = "admin"
-BROKER_PASSWORD = "test"
-BROKER_VHOST = "vpoluceno-desktop"
+BROKER_USER = "tests"
+BROKER_PASSWORD = "tests"
+BROKER_VHOST = "tests-vhost"
 
+CELERY_ALWAYS_EAGER = True
 CELERY_SEND_EVENTS = True
 CELERY_SEND_TASK_ERROR_EMAILS = True
 
 CELERYD_LOG_LEVEL = 'INFO'
 CELERYD_POOL = "eventlet"
 CELERYD_CONCURRENCY = 10
-
-# set CELERY_ALWAYS_EAGER=True before running tests
-TEST_RUNNER = 'djcelery.contrib.test_runner.run_tests' 
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -58,6 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'djcelery',
     'gunicorn',
+    'django_jenkins',
     'rest_api',
 )
 

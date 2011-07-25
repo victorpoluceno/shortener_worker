@@ -4,6 +4,7 @@ psycopg2==2.4.1
 requests>=0.5
 celery>=2.2.7
 django-celery>=2.2.4
+django-jenkins>=0.11.1
 
 #-e git+https://github.com/ask/celery.git#egg=celery # 2.3.0
 #-e git+https://github.com/ask/django-celery.git#egg=django-celery # 2.3.0

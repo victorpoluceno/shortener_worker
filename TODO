@@ -4,3 +4,7 @@
 - Test performance using memcache as cache backend
 - Test performance and pros using a persisntent result backend like mongodb
 - Check why running test_functional.py on devel env we never reach the queue, and raise a timeout error
+- on tasks.py we should read long_url from memcache
+- on tasks.py ensure with retry that if we made a resquest we have to save the result 
+- on tasks.py should we ensure that user are logged and have permission here two?
+- on fabfile.py write all commands to setup test environmente

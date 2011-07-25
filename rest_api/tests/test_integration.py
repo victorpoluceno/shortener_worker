@@ -8,16 +8,22 @@ from rest_api.models import Url
 from rest_api.tasks import url_short, \
         UrlAlreadyUpdatedError
 
+from django.conf import settings
+
 WAIT_TIMEOUT = 5
+
 
 class TaskNoEagerTest(TestCase):
     def setUp(self):
+        qs = Url.objects.all()
+        qs.exclude()
+
         self.url = Url.objects.create(long_url='hakta.com')
         self.url.save()
 
-        from django.conf import settings
         settings.CELERY_ALWAYS_EAGER = False
 
+    @unittest.skipIf(getattr(settings, 'BROKER_BACKEND', None), "memory")
     def test_url_short_task(self):
         result = url_short.delay(self.url.id)
         result.wait(timeout=WAIT_TIMEOUT)
@@ -26,7 +32,8 @@ class TaskNoEagerTest(TestCase):
         self.assertNotEqual(url_updated.key, None)
 
         result = url_short.delay(9999)
-        self.assertRaises(ObjectDoesNotExist, result.wait, (), {'timeout': WAIT_TIMEOUT})
+        self.assertRaises(ObjectDoesNotExist, result.wait, (),
+                {'timeout': WAIT_TIMEOUT})
         self.assertEqual(result.failed(), True)
         self.assertEqual(isinstance(result.result, ObjectDoesNotExist), True)
   
@@ -34,10 +41,12 @@ class TaskNoEagerTest(TestCase):
         url.key = 'xxx'
         url.save()
         result = url_short.delay(url.id)
-        self.assertRaises(UrlAlreadyUpdatedError, result.wait, (), {'timeout': WAIT_TIMEOUT})
+        self.assertRaises(UrlAlreadyUpdatedError, result.wait, (),
+                {'timeout': WAIT_TIMEOUT})
         self.assertEqual(result.failed(), True)
-        self.assertEqual(isinstance(result.result, UrlAlreadyUpdatedError), True)
-
+        self.assertEqual(isinstance(result.result, UrlAlreadyUpdatedError),
+                True)
+        
 
 if __name__ == '__main__':
     unittest.main()
