@@ -26,7 +26,7 @@ class RequestTest(TestCase):
         with self.assertRaises(NameError):
             Request(backend='X')
 
-        #Request.create()
+        Request.create()
 
 
 class UrlShortenerTest(TestCase):
