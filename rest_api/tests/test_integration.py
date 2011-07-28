@@ -14,7 +14,7 @@ WAIT_TIMEOUT = 5
 class TaskNoEagerTest(TestCase):
     def setUp(self):
         query = Url.objects.all()
-        query.exclude()
+        query.delete()
 
         self.url = Url.objects.create(long_url='hakta.com')
         self.url.save()

@@ -13,7 +13,7 @@ class UrlTest(TestCase):
 
     def test_unique(self):
         query = Url.objects.all()
-        query.exclude()
+        query.delete()
 
         url = Url.objects.create(long_url='http://hakta.com')
         url.save()
