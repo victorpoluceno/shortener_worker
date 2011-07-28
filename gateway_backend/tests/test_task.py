@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from django.contrib.auth.models import User
 
-from rest_api.models import Url
-from rest_api.tasks import url_short, \
+from gateway_backend.models import Url
+from gateway_backend.tasks import url_short, \
         UrlAlreadyUpdatedError
 
 

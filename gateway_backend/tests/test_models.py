@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.db import IntegrityError
 
-from rest_api.models import Url
+from gateway_backend.models import Url
 
 class UrlTest(TestCase):
     def test_create(self):

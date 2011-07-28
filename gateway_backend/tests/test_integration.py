@@ -4,8 +4,8 @@ from unittest import TestCase
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
-from rest_api.models import Url
-from rest_api.tasks import url_short, \
+from gateway_backend.models import Url
+from gateway_backend.tasks import url_short, \
         UrlAlreadyUpdatedError
 
 WAIT_TIMEOUT = 5

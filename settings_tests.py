@@ -27,7 +27,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rest_api',
+        'NAME': 'gateway_backend',
         'USER': 'tests',
         'PASSWORD': 'tests',
         'HOST': 'localhost',
@@ -56,7 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'djcelery',
     'django_jenkins',
-    'rest_api',
+    'gateway_backend',
 )
 
 # See http://docs.djangoproject.com/en/dev/topics/logging for
@@ -90,7 +90,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'core.rest_api': {
+        'gateway_backend': {
             'handlers': ['console', 'mail_admins'],
             'level': 'INFO',
         },

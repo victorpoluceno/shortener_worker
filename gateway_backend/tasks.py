@@ -1,7 +1,7 @@
 from celery.task import task
 
-from rest_api.models import Url
-from rest_api.backend import UrlShortener
+from gateway_backend.models import Url
+from gateway_backend.backend import UrlShortener
 
 
 class UrlAlreadyUpdatedError(Exception):

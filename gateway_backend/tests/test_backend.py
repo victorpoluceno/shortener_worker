@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from rest_api.backend import Transport, Google, GoogleSandBox, UrlShortener
+from gateway_backend.backend import Transport, Google, GoogleSandBox, UrlShortener
 
 
 class RequestTest(TestCase):

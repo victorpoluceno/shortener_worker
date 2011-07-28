@@ -52,7 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'djcelery',
     'django_jenkins',
-    'rest_api',
+    'gateway_backend',
 )
 
 # See http://docs.djangoproject.com/en/dev/topics/logging for
@@ -86,7 +86,7 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-        'rest_api': {
+        'gateway_backend': {
             'handlers': ['console', 'mail_admins'],
             'level': 'INFO',
         },
