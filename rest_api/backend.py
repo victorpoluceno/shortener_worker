@@ -15,7 +15,7 @@ def random_key(length=10):
         for i in xrange(length)) 
 
 
-class UrlShortener(object):
+class Transport(object):
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
@@ -24,7 +24,7 @@ class UrlShortener(object):
         pass
 
 
-class GoogleSandBox(UrlShortener):
+class GoogleSandBox(Transport):
     @staticmethod
     def create(long_url):
         # fake request to simulate network latency
@@ -32,7 +32,7 @@ class GoogleSandBox(UrlShortener):
         return 'http://sandbox/%s' % random_key()
 
 
-class Google(UrlShortener):
+class Google(Transport):
     @staticmethod
     def create(long_url):
         # using get api
@@ -42,23 +42,24 @@ class Google(UrlShortener):
         return results['short_url']
        
 
-class Request(object):
-    def __init__(self, backend='GoogleSandBox'):
+class UrlShortener(object):
+    def __init__(self, transport_name='GoogleSandBox'):
         # check if settings specified a backend to use
-        self.backend = getattr(settings, 'SHORTENER_BACKEND', backend)
+        self.transport_name = getattr(settings, 'SHORTENER_BACKEND', \
+                transport_name)
 
         try:
             # str to class from current module
-            klass = getattr(sys.modules[__name__], self.backend)
+            klass = getattr(sys.modules[__name__], self.transport_name)
         except AttributeError:
-            raise NameError("%s doesn't exist." % self.backend)
+            raise NameError("%s doesn't exist." % self.transport_name)
         
         # instatiate our shortener backend
-        self.shortener = klass()
+        self.transport = klass
 
     def __getattr__(self, attr):
         try:
-            return getattr(self.shortener, attr)
+            return getattr(self.transport, attr)
         except AttributeError:
             # raise again to show Request as the object
             raise AttributeError("'%s' object has no attribute '%s'" \

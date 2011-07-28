@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from rest_api.backend import Request, Google, GoogleSandBox, UrlShortener
+from rest_api.backend import Transport, Google, GoogleSandBox, UrlShortener
 
 
 class RequestTest(TestCase):
@@ -9,41 +9,42 @@ class RequestTest(TestCase):
         if hasattr(settings, 'SHORTENER_BACKEND'):
             delattr(settings, 'SHORTENER_BACKEND')
 
-        request = Request()
-        self.assertEqual(request.backend, 'GoogleSandBox') 
-        self.assertTrue(isinstance(request.shortener, GoogleSandBox))
+        request = UrlShortener()
+        self.assertEqual(request.transport_name, 'GoogleSandBox') 
+        self.assertTrue(request.transport, GoogleSandBox)
 
         settings.SHORTENER_BACKEND = 'Google'
-        request = Request()
-        self.assertEqual(request.backend, settings.SHORTENER_BACKEND) 
-        self.assertTrue(isinstance(request.shortener, Google))
+        request = UrlShortener()
+        self.assertEqual(request.transport_name, settings.SHORTENER_BACKEND) 
+        self.assertTrue(request.transport, Google)
 
         delattr(settings, 'SHORTENER_BACKEND')
-        request = Request(backend='GoogleSandBox')
-        self.assertEqual(request.backend, 'GoogleSandBox') 
-        self.assertTrue(isinstance(request.shortener, GoogleSandBox))
+        request = UrlShortener(transport_name='GoogleSandBox')
+        self.assertEqual(request.transport_name, 'GoogleSandBox') 
+        self.assertTrue(request.transport, GoogleSandBox)
     
         with self.assertRaises(NameError):
-            Request(backend='X')
+            UrlShortener(transport_name='X')
 
-        Request.create()
+        self.assertNotEqual(UrlShortener().create('hakta.com'), None)
+        self.assertNotEqual(UrlShortener().create('hakta.com'), '')
 
 
 class UrlShortenerTest(TestCase):
     def test_google_sandbox(self):
-        request = GoogleSandBox()
-        key = request.create('http://hakta.com')
+        shortener = GoogleSandBox()
+        key = shortener.create('http://hakta.com')
         self.assertNotEqual(key, '')
         self.assertNotEqual(key, None)
         self.assertTrue('sandbox' in key)
 
     def test_google(self):
-        request = Google()
-        key = request.create('http://hakta.com')
+        shortener = Google()
+        key = shortener.create('http://hakta.com')
         self.assertNotEqual(key, '')
         self.assertNotEqual(key, None)
         self.assertTrue('goo.gl' in key)
 
     def test_url_shortener(self):
         with self.assertRaises(TypeError):
-            UrlShortener()
+            Transport()
