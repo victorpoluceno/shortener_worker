@@ -55,7 +55,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'djcelery',
-    'gunicorn',
     'django_jenkins',
     'rest_api',
 )
