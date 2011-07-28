@@ -58,9 +58,4 @@ class UrlShortener(object):
         self.transport = klass
 
     def __getattr__(self, attr):
-        try:
-            return getattr(self.transport, attr)
-        except AttributeError:
-            # raise again to show Request as the object
-            raise AttributeError("'%s' object has no attribute '%s'" \
-                    % (self.__class__.__name__, attr))
+        return getattr(self.transport, attr)
