@@ -1,5 +1,4 @@
 from celery.task import task
-from celery.task.sets import subtask
 
 from rest_api.models import Url
 from rest_api.backend import UrlShortener

@@ -12,8 +12,8 @@ class UrlTest(TestCase):
         self.assertEqual(url.key, '')
 
     def test_unique(self):
-        qs = Url.objects.all()
-        qs.exclude()
+        query = Url.objects.all()
+        query.exclude()
 
         url = Url.objects.create(long_url='http://hakta.com')
         url.save()

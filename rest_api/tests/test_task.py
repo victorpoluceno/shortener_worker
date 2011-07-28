@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.test.client import Client
 
 from django.contrib.auth.models import User
 
@@ -7,12 +6,10 @@ from rest_api.models import Url
 from rest_api.tasks import url_short, \
         UrlAlreadyUpdatedError
 
-from celery.task.sets import subtask
-from celery.task import task
-
 
 class TaskTest(TestCase):
     def setUp(self):
+        #TODO: replace by a fixture
         self.user = User.objects.create_user('tests', \
                 email='victorpoluceno@gmail.com')
         self.user.is_superuser = True
@@ -37,4 +34,5 @@ class TaskTest(TestCase):
         url.save()
         result = url_short.delay(url.id)
         self.assertEqual(result.failed(), True)
-        self.assertEqual(isinstance(result.result, UrlAlreadyUpdatedError), True)
+        self.assertEqual(isinstance(result.result, UrlAlreadyUpdatedError), 
+                True)

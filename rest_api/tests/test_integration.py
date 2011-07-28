@@ -8,15 +8,13 @@ from rest_api.models import Url
 from rest_api.tasks import url_short, \
         UrlAlreadyUpdatedError
 
-from django.conf import settings
-
 WAIT_TIMEOUT = 5
 
 
 class TaskNoEagerTest(TestCase):
     def setUp(self):
-        qs = Url.objects.all()
-        qs.exclude()
+        query = Url.objects.all()
+        query.exclude()
 
         self.url = Url.objects.create(long_url='hakta.com')
         self.url.save()
