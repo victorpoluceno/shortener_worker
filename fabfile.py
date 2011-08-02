@@ -14,4 +14,4 @@ def run_integration_tests(settings_file="settings_tests"):
 
 def deploy():
     local("dotcloud push shortener")
-    local('dotcloud run shortener.www run "python manage.py syncdb --settings=settings_production"')
+    local('dotcloud run shortener.www "python manage.py syncdb --settings=settings_production"')
