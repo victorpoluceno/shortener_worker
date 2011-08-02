@@ -11,3 +11,7 @@ def run_integration_tests(settings_file="settings_tests"):
 
     local("export PYTHONPATH=. && export DJANGO_SETTINGS_MODULE=%s "\
             "&& python gateway_backend/tests/test_integration.py" % settings_file)
+
+def deploy():
+    local("dotcloud push shortener")
+    local('dotcloud run shortener.www run "python manage.py syncdb --settings=settings_production"')
